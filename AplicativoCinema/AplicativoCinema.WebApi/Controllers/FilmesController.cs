@@ -1,5 +1,7 @@
 ﻿using AplicativoCinema.WebApi.Infraestrutura;
 using AplicativoCinema.WebApi.Models;
+using AplicativoCinema.WebApi.Dominio;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,13 +23,57 @@ namespace AplicativoCinema.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar([FromBody]Filme filme)
+        public IActionResult Cadastrar([FromBody] NovoFilmeInputModel filmeInputModel)
         {
-            filme.Id = Guid.NewGuid().ToString();
-            _filmesRepositorio.Inserir(filme);
+            var filme = Filme.Criar(filmeInputModel.Titulo, filmeInputModel.Duracao, filmeInputModel.Sinopse);
+            if (filme.IsFailure)
+                return BadRequest(filme.Error);
+            foreach (var sessaoInput in filmeInputModel.Sessao)
+            {
+                var horarioInicial = Horario.Criar(sessaoInput.HorarioInicial);
+                if (horarioInicial.IsFailure)
+                    return BadRequest(horarioInicial.Error);
+                filme.Value.AdicionarSessao((EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
+            }
+
+            _filmesRepositorio.Inserir(filme.Value);
+
+            return CreatedAtAction(nameof(RecuperarPoId), new { id = filme.Value.Id}, filme.Value);
+        }
+
+        [HttpPut("id")]
+        public IActionResult Atualizar(string id, [FromBody] AlterarFilmeInputModel filmeInputModel)
+        {
+            if (!Guid.TryParse(id, out var guid))
+                return BadRequest("Id inválido");
+
+            var filme = _filmesRepositorio.RecuperarPorId(guid);
+            if (filme == null)
+                return NotFound();
+            filme.LimparSessoes();
+            foreach (var sessaoInput in filmeInputModel.Sessao)
+            {
+                var horarioInicial = Horario.Criar(sessaoInput.HorarioInicial);
+                if (horarioInicial.IsFailure)
+                    return BadRequest(horarioInicial.Error);
+                if (string.IsNullOrEmpty(sessaoInput.Id))
+                {
+                    filme.AdicionarSessao((EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
+                }
+                else
+                {
+                    if (!Guid.TryParse(sessaoInput.Id, out var guidSessao))
+                        return BadRequest("Id da sessão inválido");
+                    var sessao = new Sessao(guidSessao, (EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
+                    filme.AdicionarSessao(sessao);
+                }
+            }
+
+            _filmesRepositorio.Alterar(filme);
 
             return Ok(filme);
         }
+
 
         [HttpGet]
         public IActionResult RecuperarTodos()
@@ -41,10 +87,14 @@ namespace AplicativoCinema.WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult RecuperarPoId(string id)
         {
-            var guid = Guid.Parse(id);
+            if (!Guid.TryParse(id, out var guid))
+                return BadRequest("Id inválido");
 
-            return Ok(guid);
+            var filme = _filmesRepositorio.RecuperarPorId(guid);
+            if (filme == null)
+                return NotFound();
+
+            return Ok(filme);
         }
-
     }
 }
