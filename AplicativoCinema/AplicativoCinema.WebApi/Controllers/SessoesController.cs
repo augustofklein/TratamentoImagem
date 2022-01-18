@@ -1,9 +1,11 @@
 ﻿using AplicativoCinema.WebApi.Dominio;
 using AplicativoCinema.WebApi.Infraestrutura;
+using AplicativoCinema.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AplicativoCinema.WebApi.Controllers
@@ -12,24 +14,27 @@ namespace AplicativoCinema.WebApi.Controllers
     [ApiController]
     public class SessoesController : ControllerBase
     {
-        private readonly SessoesRepositorio _sessoesRepositorio;
+        private readonly SessoesRepositorio _sessaoRepositorio;
+        private readonly FilmesRepositorio _filmeRepositorio;
 
-        public SessoesController(SessoesRepositorio sessoesRepositorio)
+        public SessoesController(SessoesRepositorio sessaoRepositorio, FilmesRepositorio filmeRepositorio)
         {
-            _sessoesRepositorio = sessoesRepositorio;
+            _sessaoRepositorio = sessaoRepositorio;
+            _filmeRepositorio = filmeRepositorio;
         }
 
-        [HttpGet("{id},{diaSemana}")]
-        public IActionResult RecuperarPorIdeDia(string id, EDiaSemana diaSemana)
+        [HttpPost]
+        public async Task<IActionResult> CadastrarAsync([FromBody] NovaSessaoInputModel sessaoInputModel, CancellationToken cancellationToken)
         {
-            if (!Guid.TryParse(id, out var guid))
-                return BadRequest("Id inválido");
+            var _horario = Horario.Criar(sessaoInputModel.Horario);
+            if (_horario.IsFailure)
+                return BadRequest(_horario.Error);
 
-            var filme = _sessoesRepositorio.RecuperarPorIdeDia(id, diaSemana);
-            if(filme == null)
-                return NotFound();
+            if (!Guid.TryParse(sessaoInputModel.IdFilme, out var _filmeId))
+                return BadRequest("O Id do filme é inválido");
 
-            return Ok(filme.Sessao);
+            var sessao = Sessao.Criar(_filmeId, (EDiaSemana)sessaoInputModel.DiaSemana, _horario.Value, sessaoInputModel.QuantidadeLugares, sessaoInputModel.Preco, sessaoInputModel.TotalIngressos);
+            return CreatedAtAction("RecuperarPorId", new { id = sessao.Value.Id }, sessao.Value.Id);
         }
     }
 }

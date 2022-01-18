@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace AplicativoCinema.WebApi.Controllers
 {
@@ -23,74 +24,42 @@ namespace AplicativoCinema.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar([FromBody] NovoFilmeInputModel filmeInputModel)
+        public async Task<IActionResult> CadastrarAsync([FromBody] NovoFilmeInputModel filmeInputModel, CancellationToken cancellationToken)
         {
             var filme = Filme.Criar(filmeInputModel.Titulo, filmeInputModel.Duracao, filmeInputModel.Sinopse);
+
             if (filme.IsFailure)
                 return BadRequest(filme.Error);
-            foreach (var sessaoInput in filmeInputModel.Sessao)
-            {
-                var horarioInicial = Horario.Criar(sessaoInput.HorarioInicial);
-                if (horarioInicial.IsFailure)
-                    return BadRequest(horarioInicial.Error);
-                filme.Value.AdicionarSessao((EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
-            }
 
-            _filmesRepositorio.Inserir(filme.Value);
+            await _filmesRepositorio.InserirAsync(filme.Value, cancellationToken);
+            await _filmesRepositorio.CommitAsync(cancellationToken);
 
-            return CreatedAtAction(nameof(RecuperarPoId), new { id = filme.Value.Id}, filme.Value);
+            return CreatedAtAction("RecuperarPorId", new { id = filme.Value.Id }, filme.Value.Id);
         }
 
         [HttpPut("id")]
-        public IActionResult Atualizar(string id, [FromBody] AlterarFilmeInputModel filmeInputModel)
+        public async Task<IActionResult> Atualizar(string id, [FromBody] AlterarFilmeInputModel filmeInputModel, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(id, out var guid))
                 return BadRequest("Id inválido");
 
-            var filme = _filmesRepositorio.RecuperarPorId(guid);
+            var filme = await _filmesRepositorio.RecuperarPorIdAsync(guid, cancellationToken);
             if (filme == null)
                 return NotFound();
-            filme.LimparSessoes();
-            foreach (var sessaoInput in filmeInputModel.Sessao)
-            {
-                var horarioInicial = Horario.Criar(sessaoInput.HorarioInicial);
-                if (horarioInicial.IsFailure)
-                    return BadRequest(horarioInicial.Error);
-                if (string.IsNullOrEmpty(sessaoInput.Id))
-                {
-                    filme.AdicionarSessao((EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
-                }
-                else
-                {
-                    if (!Guid.TryParse(sessaoInput.Id, out var guidSessao))
-                        return BadRequest("Id da sessão inválido");
-                    var sessao = new Sessao(guidSessao, (EDiaSemana)sessaoInput.DiaSemana, horarioInicial.Value, sessaoInput.QuantidadeLugares, sessaoInput.Preco);
-                    filme.AdicionarSessao(sessao);
-                }
-            }
 
             _filmesRepositorio.Alterar(filme);
+            await _filmesRepositorio.CommitAsync(cancellationToken);
 
             return Ok(filme);
         }
 
-
-        [HttpGet]
-        public IActionResult RecuperarTodos()
-        {
-            return Ok(_filmesRepositorio.RecuperarTodos());
-        }
-
-        /*
-         * Rota aguardando um parâmetro
-         */
         [HttpGet("{id}")]
-        public IActionResult RecuperarPoId(string id)
+        public async Task<IActionResult> RecuperarPorIdAsync(string id, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(id, out var guid))
                 return BadRequest("Id inválido");
 
-            var filme = _filmesRepositorio.RecuperarPorId(guid);
+            var filme = await _filmesRepositorio.RecuperarPorIdAsync(guid, cancellationToken);
             if (filme == null)
                 return NotFound();
 

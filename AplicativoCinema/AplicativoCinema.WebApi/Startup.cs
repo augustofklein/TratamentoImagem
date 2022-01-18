@@ -36,7 +36,6 @@ namespace AplicativoCinema.WebApi
         {
             services.AddControllers();
             services.AddScoped<FilmesRepositorio>();
-            services.AddScoped<SessoesRepositorio>();
             services.AddDapper();
             services.AddDbContext<CinemasDbContext>(
                 o =>
