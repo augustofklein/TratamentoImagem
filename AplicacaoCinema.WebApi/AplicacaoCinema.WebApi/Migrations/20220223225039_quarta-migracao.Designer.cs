@@ -4,14 +4,16 @@ using AplicacaoCinema.WebApi.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoCinema.WebApi.Migrations
 {
     [DbContext(typeof(CinemasDbContext))]
-    partial class CinemasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220223225039_quarta-migracao")]
+    partial class quartamigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,10 +61,6 @@ namespace AplicacaoCinema.WebApi.Migrations
 
                     b.Property<DateTime>("DataUltimaAlteracao")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("QuantidadeIngressos")
-                        .HasColumnType("int")
-                        .HasColumnName("QuantidadeIngressos");
 
                     b.Property<Guid>("SessaoId")
                         .HasColumnType("uniqueidentifier");

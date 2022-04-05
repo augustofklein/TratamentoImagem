@@ -4,14 +4,16 @@ using AplicacaoCinema.WebApi.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoCinema.WebApi.Migrations
 {
     [DbContext(typeof(CinemasDbContext))]
-    partial class CinemasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220223223355_terceira-migracao")]
+    partial class terceiramigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,10 +62,6 @@ namespace AplicacaoCinema.WebApi.Migrations
                     b.Property<DateTime>("DataUltimaAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("QuantidadeIngressos")
-                        .HasColumnType("int")
-                        .HasColumnName("QuantidadeIngressos");
-
                     b.Property<Guid>("SessaoId")
                         .HasColumnType("uniqueidentifier");
 
@@ -102,6 +100,10 @@ namespace AplicacaoCinema.WebApi.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(38,17)")
                         .HasColumnName("Preco");
+
+                    b.Property<int>("QuantidadeIngressos")
+                        .HasColumnType("int")
+                        .HasColumnName("QuantidadeIngressos");
 
                     b.Property<int>("TotalIngressos")
                         .HasColumnType("int")

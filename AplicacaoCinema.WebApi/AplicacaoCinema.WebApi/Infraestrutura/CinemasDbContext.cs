@@ -12,6 +12,8 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
     public class CinemasDbContext : DbContext
     {
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<Sessao> Sessoes { get; set; }
+        public DbSet<Ingresso> Ingressos { get; set; }
 
         public CinemasDbContext(DbContextOptions options) : base(options)
         {
@@ -47,6 +49,8 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new FilmeTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SessaoTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new IngressoTypeConfiguration());
         }
     }
 }

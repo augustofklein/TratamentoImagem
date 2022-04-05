@@ -4,14 +4,16 @@ using AplicacaoCinema.WebApi.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoCinema.WebApi.Migrations
 {
     [DbContext(typeof(CinemasDbContext))]
-    partial class CinemasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220222171315_segunda-migracao")]
+    partial class segundamigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,32 +50,6 @@ namespace AplicacaoCinema.WebApi.Migrations
                     b.ToTable("Filmes", "dbo");
                 });
 
-            modelBuilder.Entity("AplicacaoCinema.WebApi.Dominio.Ingresso", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataUltimaAlteracao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("QuantidadeIngressos")
-                        .HasColumnType("int")
-                        .HasColumnName("QuantidadeIngressos");
-
-                    b.Property<Guid>("SessaoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessaoId");
-
-                    b.ToTable("Ingressos", "dbo");
-                });
-
             modelBuilder.Entity("AplicacaoCinema.WebApi.Dominio.Sessao", b =>
                 {
                     b.Property<Guid>("Id")
@@ -103,24 +79,11 @@ namespace AplicacaoCinema.WebApi.Migrations
                         .HasColumnType("decimal(38,17)")
                         .HasColumnName("Preco");
 
-                    b.Property<int>("TotalIngressos")
-                        .HasColumnType("int")
-                        .HasColumnName("TotalIngressos");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FilmeId");
 
                     b.ToTable("Sessoes", "dbo");
-                });
-
-            modelBuilder.Entity("AplicacaoCinema.WebApi.Dominio.Ingresso", b =>
-                {
-                    b.HasOne("AplicacaoCinema.WebApi.Dominio.Sessao", null)
-                        .WithMany()
-                        .HasForeignKey("SessaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("AplicacaoCinema.WebApi.Dominio.Sessao", b =>

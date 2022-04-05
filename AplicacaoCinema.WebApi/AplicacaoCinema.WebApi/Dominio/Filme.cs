@@ -13,7 +13,7 @@ namespace AplicacaoCinema.WebApi.Dominio
         public int Duracao { get; }
         public string Sinopse { get; }
 
-        public Filme(Guid id, string titulo, int duracao, string sinopse)
+        private Filme(Guid id, string titulo, int duracao, string sinopse)
         {
             Id = id;
             Titulo = titulo;

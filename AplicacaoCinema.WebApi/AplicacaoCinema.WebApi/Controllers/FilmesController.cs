@@ -34,15 +34,20 @@ namespace AplicacaoCinema.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> RecuperarPorIdAsync(string id, CancellationToken cancellationToken)
+        public async Task<IActionResult> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            if (!Guid.TryParse(id, out var guid))
-                return BadRequest("Id inválido");
-            var filme = await _filmesRepositorio.RecuperarPorIdAsync(guid, cancellationToken);
+            var filme = await _filmesRepositorio.RecuperarPorIdAsync(id, cancellationToken);
 
             if (filme == null)
                 return NotFound();
 
+            return Ok(filme);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> RecuperarTodosAsync(CancellationToken cancellationToken)
+        {
+            var filme = await _filmesRepositorio.RecuperarTodosAsync(cancellationToken);
             return Ok(filme);
         }
     }

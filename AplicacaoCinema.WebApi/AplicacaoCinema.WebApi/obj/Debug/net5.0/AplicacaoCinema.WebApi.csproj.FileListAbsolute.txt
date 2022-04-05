@@ -61,3 +61,17 @@ C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\obj\De
 C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\obj\Debug\net5.0\ref\AplicacaoCinema.WebApi.dll
 C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\obj\Debug\net5.0\AplicacaoCinema.WebApi.pdb
 C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\obj\Debug\net5.0\AplicacaoCinema.WebApi.genruntimeconfig.cache
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\obj\Debug\net5.0\AplicacaoCinema.WebApi.csproj.AssemblyReference.cache
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.AspNetCore.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Extensions.Hosting.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Extensions.Logging.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Formatting.Compact.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Settings.Configuration.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Sinks.Console.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Sinks.Debug.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Sinks.File.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Sinks.PeriodicBatching.dll
+C:\Users\augus\source\repos\AplicacaoCinema.WebApi\AplicacaoCinema.WebApi\bin\Debug\net5.0\Serilog.Sinks.Seq.dll

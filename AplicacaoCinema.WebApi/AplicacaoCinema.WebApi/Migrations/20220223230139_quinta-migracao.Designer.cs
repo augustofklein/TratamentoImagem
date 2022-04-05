@@ -4,14 +4,16 @@ using AplicacaoCinema.WebApi.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoCinema.WebApi.Migrations
 {
     [DbContext(typeof(CinemasDbContext))]
-    partial class CinemasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220223230139_quinta-migracao")]
+    partial class quintamigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

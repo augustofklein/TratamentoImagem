@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace AplicacaoCinema.WebApi
         {
             services.AddControllers();
             services.AddScoped<FilmesRepositorio>();
+            services.AddScoped<SessoesRepositorio>();
+            services.AddScoped<IngressosRepositorio>();
             services.AddDbContext<CinemasDbContext>(
                 o =>
                 {
@@ -42,6 +45,11 @@ namespace AplicacaoCinema.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Write streamlined request completion events, instead of the more verbose ones from the framework.
+            // To use the default framework request logging instead, remove this line and set the "Microsoft"
+            // level in appsettings.json to "Information".
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
