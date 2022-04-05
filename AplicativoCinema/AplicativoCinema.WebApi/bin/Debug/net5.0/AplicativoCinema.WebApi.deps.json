@@ -33,7 +33,10 @@
     ".NETCoreApp,Version=v5.0": {
       "AplicativoCinema.WebApi/1.0.0": {
         "dependencies": {
+          "CSharpFunctionalExtensions": "2.26.1",
           "Dapper": "2.0.123",
+          "Microsoft.EntityFrameworkCore": "5.0.13",
+          "Microsoft.EntityFrameworkCore.Design": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
           "Swashbuckle.AspNetCore": "5.6.3",
           "System.Data.SqlClient": "4.8.3",
@@ -326,6 +329,17 @@
           "AplicativoCinema.WebApi.dll": {}
         }
       },
+      "CSharpFunctionalExtensions/2.26.1": {
+        "runtime": {
+          "lib/net5.0/CSharpFunctionalExtensions.dll": {
+            "assemblyVersion": "2.26.1.0",
+            "fileVersion": "2.26.1.0"
+          }
+        },
+        "compile": {
+          "lib/net5.0/CSharpFunctionalExtensions.dll": {}
+        }
+      },
       "Dapper/2.0.123": {
         "runtime": {
           "lib/net5.0/Dapper.dll": {
@@ -337,7 +351,15 @@
           "lib/net5.0/Dapper.dll": {}
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Humanizer.Core/2.8.26": {
+        "runtime": {
+          "lib/netstandard2.0/Humanizer.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.26.1919"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/2.0.1": {
         "dependencies": {
           "Microsoft.Data.SqlClient.SNI.runtime": "2.0.1",
@@ -452,6 +474,19 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/5.0.13": {},
+      "Microsoft.EntityFrameworkCore.Design/5.0.13": {
+        "dependencies": {
+          "Humanizer.Core": "2.8.26",
+          "Microsoft.CSharp": "4.7.0",
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.13"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "5.0.13.0",
+            "fileVersion": "5.0.1321.56013"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/5.0.13": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.13",
@@ -535,7 +570,7 @@
       "Microsoft.Extensions.Primitives/5.0.0": {},
       "Microsoft.Identity.Client/4.14.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Private.Uri": "4.3.2",
@@ -651,7 +686,7 @@
       },
       "Newtonsoft.Json/10.0.1": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.Collections": "4.3.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
@@ -3116,6 +3151,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "CSharpFunctionalExtensions/2.26.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-J+N1gttYoRPB8F2ceecgzo+oEId39GzcyK+LE2S6MROzAhfnj1l9Qv6j9mOIczZJWaW40P10qlzFyZCEkLKZxA==",
+      "path": "csharpfunctionalextensions/2.26.1",
+      "hashPath": "csharpfunctionalextensions.2.26.1.nupkg.sha512"
+    },
     "Dapper/2.0.123": {
       "type": "package",
       "serviceable": true,
@@ -3123,12 +3165,19 @@
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
+      "path": "humanizer.core/2.8.26",
+      "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/2.0.1": {
       "type": "package",
@@ -3164,6 +3213,13 @@
       "sha512": "sha512-torTg+dQC/vOlFI5FZsRmOAA5pKtr8cJNJ5SWsl0RVYmhb5I7s/V3T1NsIzSqJTYzGBssHl5mFbiBODeBdQpnQ==",
       "path": "microsoft.entityframeworkcore.analyzers/5.0.13",
       "hashPath": "microsoft.entityframeworkcore.analyzers.5.0.13.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Design/5.0.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T9Qq5RebYkx2EEU7ahHNediObrIE5dsRKt6mTkVwqrVqX1Kp+/HD02T1ZMdI1H62WLHH4QIdcCfjgsKgenTQFg==",
+      "path": "microsoft.entityframeworkcore.design/5.0.13",
+      "hashPath": "microsoft.entityframeworkcore.design.5.0.13.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/5.0.13": {
       "type": "package",
