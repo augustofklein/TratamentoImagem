@@ -4,8 +4,6 @@ using AplicacaoAnuncio.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,12 +23,15 @@ namespace AplicacaoAnuncio.Controllers
 
         [EnableCors("AllowOrigin")]
         [HttpPost]
-        public async Task<IActionResult> CadastrarAsync([FromBody] NovoUsuarioInputModel servicoInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> CadastrarAsync([FromBody] NovoUsuarioInputModel usuarioInputModel, CancellationToken cancellationToken)
         {
-            var usuario = Usuario.Criar(servicoInputModel.Cpf,
-                                        servicoInputModel.Nome,
-                                        servicoInputModel.DataNascimento,
-                                        servicoInputModel.Sexo);
+            var usuario = Usuario.Criar(usuarioInputModel.Cpf,
+                                        usuarioInputModel.Nome,
+                                        usuarioInputModel.DataNascimento,
+                                        usuarioInputModel.Sexo,
+                                        usuarioInputModel.TipoUsuario,
+                                        usuarioInputModel.Senha,
+                                        usuarioInputModel.Email);
 
             if (usuario.IsFailure)
                 return BadRequest(usuario.Error);
@@ -58,6 +59,32 @@ namespace AplicacaoAnuncio.Controllers
         public async Task<IActionResult> RecuperarTodosAsync(CancellationToken cancellationToken)
         {
             var usuario = await _usuariosRepositorio.RecuperarTodosAsync(cancellationToken);
+            return Ok(usuario);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var usuario = await _usuariosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            await _usuariosRepositorio.DeleteAsync(id, cancellationToken);
+
+            return Ok(usuario);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] NovoUsuarioInputModel usuarioInputModel, CancellationToken cancellationToken)
+        {
+            var usuario = await _usuariosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            usuario.Cpf = usuarioInputModel.Cpf;
+            usuario.DataNascimento = usuarioInputModel.DataNascimento;
+            usuario.Sexo = usuarioInputModel.Sexo;
+
+            await _usuariosRepositorio.UpdateAsync(cancellationToken);
+
             return Ok(usuario);
         }
     }

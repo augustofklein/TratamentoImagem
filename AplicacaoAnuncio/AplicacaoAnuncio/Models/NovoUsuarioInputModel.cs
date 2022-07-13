@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AplicacaoAnuncio.Models
 {
@@ -19,5 +15,14 @@ namespace AplicacaoAnuncio.Models
 
         [Required(ErrorMessage = "O sexo é obrigatório")]
         public char Sexo { get; set; }
+
+        [Required(ErrorMessage = "O tipo do usuário é obrigatório")]
+        public int TipoUsuario { get; set; }
+
+        [Required(ErrorMessage = "A senha é obrigatória")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "O email é obrigatório")]
+        public string Email { get; set; }
     }
 }

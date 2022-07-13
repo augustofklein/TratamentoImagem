@@ -4,14 +4,16 @@ using AplicacaoAnuncio.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoAnuncio.Migrations
 {
     [DbContext(typeof(AnuncioDbContext))]
-    partial class AnuncioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630231214_quinta-migracao")]
+    partial class quintamigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,17 +185,9 @@ namespace AplicacaoAnuncio.Migrations
                     b.Property<DateTime>("DataUltimaAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("char(50)")
-                        .HasColumnName("Email");
-
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Nome");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("char(15)")
-                        .HasColumnName("Senha");
 
                     b.Property<string>("Sexo")
                         .IsRequired()

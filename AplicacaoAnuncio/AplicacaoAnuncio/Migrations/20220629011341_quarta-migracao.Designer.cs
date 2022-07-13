@@ -4,14 +4,16 @@ using AplicacaoAnuncio.Infraestrutura;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacaoAnuncio.Migrations
 {
     [DbContext(typeof(AnuncioDbContext))]
-    partial class AnuncioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629011341_quarta-migracao")]
+    partial class quartamigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,40 +93,6 @@ namespace AplicacaoAnuncio.Migrations
                     b.ToTable("Enderecos", "dbo");
                 });
 
-            modelBuilder.Entity("AplicacaoAnuncio.Dominio.Pagamento", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataUltimaAlteracao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("QuantidadeParcelas")
-                        .HasColumnType("int")
-                        .HasColumnName("QuantidadeParcelas");
-
-                    b.Property<Guid>("ServicoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TipoPagamento")
-                        .HasColumnType("int")
-                        .HasColumnName("TipoPagamento");
-
-                    b.Property<decimal>("ValorParcela")
-                        .HasColumnType("decimal")
-                        .HasColumnName("ValorParcela");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServicoId");
-
-                    b.ToTable("Pagamentos", "dbo");
-                });
-
             modelBuilder.Entity("AplicacaoAnuncio.Dominio.Servico", b =>
                 {
                     b.Property<Guid>("Id")
@@ -183,17 +151,9 @@ namespace AplicacaoAnuncio.Migrations
                     b.Property<DateTime>("DataUltimaAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("char(50)")
-                        .HasColumnName("Email");
-
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Nome");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("char(15)")
-                        .HasColumnName("Senha");
 
                     b.Property<string>("Sexo")
                         .IsRequired()
@@ -223,15 +183,6 @@ namespace AplicacaoAnuncio.Migrations
                     b.HasOne("AplicacaoAnuncio.Dominio.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AplicacaoAnuncio.Dominio.Pagamento", b =>
-                {
-                    b.HasOne("AplicacaoAnuncio.Dominio.Servico", null)
-                        .WithMany()
-                        .HasForeignKey("ServicoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

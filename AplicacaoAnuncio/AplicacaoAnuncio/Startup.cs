@@ -1,16 +1,10 @@
 using AplicacaoAnuncio.Infraestrutura;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AplicacaoAnuncio
 {
@@ -34,7 +28,7 @@ namespace AplicacaoAnuncio
                 options.AddPolicy(name: "AllowOrigin",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:3000")
+                        builder.WithOrigins("http://localhost:3000")
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });
@@ -45,12 +39,13 @@ namespace AplicacaoAnuncio
             services.AddScoped<AvaliacoesRepositorio>();
             services.AddScoped<UsuariosRepositorio>();
             services.AddScoped<EnderecosRepositorio>();
+            services.AddScoped<PagamentosRepositorio>();
             services.AddDbContext<AnuncioDbContext>(
                 o =>
                 {
                     o.UseSqlServer("name=ConnectionStrings:Anuncio");
                 });
-        }
+        }   
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

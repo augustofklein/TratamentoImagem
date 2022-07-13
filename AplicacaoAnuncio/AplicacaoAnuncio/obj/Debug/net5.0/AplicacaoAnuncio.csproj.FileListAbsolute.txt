@@ -59,7 +59,7 @@ C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\obj\Debug\net5.0\A
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\obj\Debug\net5.0\ref\AplicacaoAnuncio.dll
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\obj\Debug\net5.0\AplicacaoAnuncio.pdb
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\obj\Debug\net5.0\AplicacaoAnuncio.genruntimeconfig.cache
-C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\bin\Debug\net5.0\ref\AplicacaoAnuncio.dll
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\bin\Debug\net5.0\ref\AplicacaoAnuncio.dll
 C:\Users\augus\source\repos\AplicacaoAnuncio\AplicacaoAnuncio\obj\Debug\net5.0\AplicacaoAnuncio.csproj.AssemblyReference.cache

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,6 +39,27 @@ namespace AplicacaoAnuncio.Infraestrutura
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            await _anuncioDbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<Endereco> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _anuncioDbContext
+                        .Enderecos
+                        .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
+            if (result != null)
+            {
+                _anuncioDbContext.Remove(result);
+                await _anuncioDbContext.SaveChangesAsync(cancellationToken);
+                return result;
+            }
+
+            return result;
+        }
+
+        public async Task UpdateAsync(CancellationToken cancellationToken = default)
         {
             await _anuncioDbContext.SaveChangesAsync(cancellationToken);
         }

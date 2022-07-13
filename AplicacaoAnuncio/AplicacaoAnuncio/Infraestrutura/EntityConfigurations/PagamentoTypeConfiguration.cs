@@ -5,12 +5,12 @@ using System;
 
 namespace AplicacaoAnuncio.Infraestrutura.EntityConfigurations
 {
-    public class AvaliacaoTypeConfiguration : IEntityTypeConfiguration<Avaliacao>
+    public class PagamentoTypeConfiguration : IEntityTypeConfiguration<Pagamento>
     {
-        public void Configure(EntityTypeBuilder<Avaliacao> builder)
+        public void Configure(EntityTypeBuilder<Pagamento> builder)
         {
             builder
-                .ToTable("Avaliacoes", "dbo");
+                .ToTable("Pagamentos", "dbo");
 
             builder
                 .HasKey(c => c.Id);
@@ -21,9 +21,19 @@ namespace AplicacaoAnuncio.Infraestrutura.EntityConfigurations
                 .HasForeignKey(c => c.ServicoId);
 
             builder
-                .Property(c => c.Nota)
-                .HasColumnName("Nota")
+                .Property(c => c.TipoPagamento)
+                .HasColumnName("TipoPagamento")
                 .HasColumnType("int");
+
+            builder
+                .Property(c => c.QuantidadeParcelas)
+                .HasColumnName("QuantidadeParcelas")
+                .HasColumnType("int");
+
+            builder
+                .Property(c => c.ValorParcela)
+                .HasColumnName("ValorParcela")
+                .HasColumnType("decimal");
 
             builder
                 .Property<DateTime>("DataUltimaAlteracao");

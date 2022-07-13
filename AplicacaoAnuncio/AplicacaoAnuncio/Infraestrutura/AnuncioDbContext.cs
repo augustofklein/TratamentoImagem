@@ -2,7 +2,6 @@
 using AplicacaoAnuncio.Infraestrutura.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +14,7 @@ namespace AplicacaoAnuncio.Infraestrutura
         public DbSet<Avaliacao> Avaliacoes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Pagamento> Pagamentos { get; set; }
 
         public AnuncioDbContext(DbContextOptions options) : base(options)
         {
@@ -53,6 +53,7 @@ namespace AplicacaoAnuncio.Infraestrutura
             modelBuilder.ApplyConfiguration(new AvaliacaoTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EnderecoTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PagamentoTypeConfiguration());
         }
     }
 }

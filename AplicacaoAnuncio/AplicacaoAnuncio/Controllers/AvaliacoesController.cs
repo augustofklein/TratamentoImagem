@@ -4,8 +4,6 @@ using AplicacaoAnuncio.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +39,7 @@ namespace AplicacaoAnuncio.Controllers
             await _avaliacoesRepositorio.InserirAsync(avaliacao.Value, cancellationToken);
             await _avaliacoesRepositorio.CommitAsync(cancellationToken);
 
-            return CreatedAtAction("RecuperarPorId", new { id = avaliacao.Value.Id}, avaliacao.Value.Id);
+            return CreatedAtAction("RecuperarPorId", new { id = avaliacao.Value.Id }, avaliacao.Value.Id);
         }
 
         [EnableCors("AllowOrigin")]
@@ -62,6 +60,30 @@ namespace AplicacaoAnuncio.Controllers
         {
             var avaliacoes = await _avaliacoesRepositorio.RecuperarTodosAsync(cancellationToken);
             return Ok(avaliacoes);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] NovaAvaliacaoInputModel avaliacaoInputModel, CancellationToken cancellationToken)
+        {
+            var avaliacao = await _avaliacoesRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            avaliacao.Nota = avaliacaoInputModel.Nota;
+
+            await _avaliacoesRepositorio.UpdateAsync(cancellationToken);
+
+            return Ok(avaliacao);
+        }
+        
+        [EnableCors("AllowOrigin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var avaliacao = await _avaliacoesRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            await _avaliacoesRepositorio.DeleteAsync(id, cancellationToken);
+
+            return Ok(avaliacao);
         }
     }
 }

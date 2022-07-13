@@ -4,8 +4,6 @@ using AplicacaoAnuncio.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -62,6 +60,33 @@ namespace AplicacaoAnuncio.Controllers
         public async Task<IActionResult> RecuperarTodosAsync(CancellationToken cancellationToken)
         {
             var servico = await _servicosRepositorio.RecuperarTodosAsync(cancellationToken);
+            return Ok(servico);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var servico = await _servicosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            await _servicosRepositorio.DeleteAsync(id, cancellationToken);
+
+            return Ok(servico);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] NovoServicoInputModel servicoInputModel, CancellationToken cancellationToken)
+        {
+            var servico = await _servicosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            servico.NomeServico = servicoInputModel.NomeServico;
+            servico.Descricao = servicoInputModel.Descricao;
+            servico.Categoria = servicoInputModel.Categoria;
+            servico.Valor = servicoInputModel.Valor;
+
+            await _servicosRepositorio.UpdateAsync(cancellationToken);
+
             return Ok(servico);
         }
     }

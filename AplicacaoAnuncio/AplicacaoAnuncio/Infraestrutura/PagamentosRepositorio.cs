@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace AplicacaoAnuncio.Infraestrutura
 {
-    public class ServicosRepositorio
+    public class PagamentosRepositorio
     {
         private readonly IConfiguration _configuration;
         private readonly AnuncioDbContext _anuncioDbContext;
 
-        public ServicosRepositorio(AnuncioDbContext anuncioDbContext, IConfiguration configuracao)
+        public PagamentosRepositorio(AnuncioDbContext anuncioDbContext, IConfiguration configuracao)
         {
             _anuncioDbContext = anuncioDbContext;
             _configuration = configuracao;
         }
 
-        public async Task InserirAsync(Servico servico, CancellationToken cancellationToken = default)
+        public async Task InserirAsync(Pagamento pagamento, CancellationToken cancellationToken = default)
         {
-            await _anuncioDbContext.AddAsync(servico, cancellationToken);
+            await _anuncioDbContext.AddAsync(pagamento, cancellationToken);
         }
 
-        public async Task<IEnumerable<Servico>> RecuperarTodosAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Pagamento>> RecuperarTodosAsync(CancellationToken cancellationToken = default)
         {
             return await _anuncioDbContext
-                .Servicos
+                .Pagamentos
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<Servico> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Pagamento> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _anuncioDbContext
-                .Servicos
+                .Pagamentos
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
 
@@ -43,10 +43,10 @@ namespace AplicacaoAnuncio.Infraestrutura
             await _anuncioDbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Servico> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Pagamento> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var result = await _anuncioDbContext
-                        .Servicos
+                        .Pagamentos
                         .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
             if (result != null)

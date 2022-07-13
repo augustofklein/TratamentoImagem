@@ -39,6 +39,21 @@ namespace AplicacaoAnuncio.Infraestrutura.EntityConfigurations
                 .HasColumnType("char(1)");
 
             builder
+                .Property(c => c.TipoUsuario)
+                .HasColumnName("TipoUsuario")
+                .HasColumnType("int");
+
+            builder
+                .Property(c => c.Senha)
+                .HasColumnName("Senha")
+                .HasColumnType("char(15)");
+
+            builder
+                .Property(c => c.Email)
+                .HasColumnName("Email")
+                .HasColumnType("char(50)");
+
+            builder
                 .Property<DateTime>("DataUltimaAlteracao");
 
             builder

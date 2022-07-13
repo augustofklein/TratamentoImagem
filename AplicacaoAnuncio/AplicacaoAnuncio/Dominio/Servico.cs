@@ -1,8 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AplicacaoAnuncio.Dominio
 {
@@ -10,10 +7,10 @@ namespace AplicacaoAnuncio.Dominio
     {
         public Guid Id { get; private set; }
         public Guid UsuarioId {get;set;}
-        public string NomeServico { get; private set; }
-        public string Descricao { get; private set; }
-        public int Categoria { get; private set; }
-        public double Valor { get; private set; }
+        public string NomeServico { get; set; }
+        public string Descricao { get; set; }
+        public int Categoria { get; set; }
+        public double Valor { get; set; }
 
         private Servico(Guid id, Guid usuarioId,string nomeServico, string descricao, int categoria, double valor)
         {

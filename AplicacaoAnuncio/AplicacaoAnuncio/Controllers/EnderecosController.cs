@@ -70,5 +70,34 @@ namespace AplicacaoAnuncio.Controllers
 
             return Ok(avaliacoes);
         }
+
+        [EnableCors("AllowOrigin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var endereco = await _enderecosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            await _enderecosRepositorio.DeleteAsync(id, cancellationToken);
+
+            return Ok(endereco);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] NovoEnderecoInputModel enderecoInputModel, CancellationToken cancellationToken)
+        {
+            var endereco = await _enderecosRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+
+            endereco.Cep = enderecoInputModel.Cep;
+            endereco.Estado = enderecoInputModel.Estado;
+            endereco.Cidade = enderecoInputModel.Cidade;
+            endereco.Logradouro = enderecoInputModel.Logradouro;
+            endereco.Numero = enderecoInputModel.Numero;
+            endereco.Bairro = enderecoInputModel.Bairro;
+
+            await _enderecosRepositorio.UpdateAsync(cancellationToken);
+
+            return Ok(endereco);
+        }
     }
 }
