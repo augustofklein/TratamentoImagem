@@ -1,5 +1,0 @@
-Compilar:
-mpicc nome.c -o nome
-
-Executar:
-mpirun -np <nproc> ./nome
